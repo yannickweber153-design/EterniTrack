@@ -45,6 +45,39 @@ body {
   display: flex;
   flex-direction: column;
 }
+</style>
+</head>
+
+<body>
+
+<script>
+(function () {
+  // Nur einmal pro Browser-Session fragen
+  if (sessionStorage.getItem("et_access") === "1") return;
+
+  const allowedDomain = "@eterniteam.de";
+  const correctPassword = "ETERNITRACK2026"; // ← HIER dein Passwort ändern
+
+  const password = prompt("Password:");
+  const email = prompt("Company email (@eterniteam.de):");
+
+  const ok =
+    password === correctPassword &&
+    typeof email === "string" &&
+    email.trim().toLowerCase().endsWith(allowedDomain);
+
+  if (!ok) {
+    document.body.innerHTML =
+      "<div style='font-family:Manrope, sans-serif;text-align:center;margin-top:20vh;'>" +
+      "<h2 style='color:#1a2f4a;'>Access denied</h2>" +
+      "<p style='color:#7a8a9a;margin-top:8px;'>Internal access only.</p>" +
+      "</div>";
+    return;
+  }
+
+  sessionStorage.setItem("et_access", "1");
+})();
+</script>
 
 /* ─── SIDEBAR ─── */
 .sidebar {
